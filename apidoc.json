@@ -1,0 +1,15 @@
+{
+  "name": "node-boilerplate",
+  "version": "0.1.0",
+  "description": "node-boilerplate API Documentation",
+  "title": "node-boilerplate",
+  "url" : "https://node-boilerplate.herokuapp.com/api",
+  "header": {
+    "title": "node-boilerplate",
+    "filename": "header.md"
+  },
+  "footer": {
+    "title": "Footer",
+    "filename": "footer.md"
+  }
+}

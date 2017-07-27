@@ -1,0 +1,19 @@
+node_modules/
+
+# Log files
+*.log
+
+# Build files
+dist/
+
+# Docs
+docs/
+
+# Coverage
+coverage/
+
+# Environment files
+.env
+
+# nyc folder
+.nyc_output/
