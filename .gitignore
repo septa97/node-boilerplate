@@ -17,3 +17,6 @@ coverage/
 
 # nyc folder
 .nyc_output/
+
+# vim .swp files
+**/*.swp
