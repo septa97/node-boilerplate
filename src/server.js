@@ -1,6 +1,7 @@
 import express from 'express';
 import debug from 'debug';
 import bodyParser from 'body-parser';
+import helmet from 'helmet';
 import { green } from 'chalk';
 
 const app = express();
@@ -10,6 +11,7 @@ const PORT = process.env.PORT || 8000;
 // Load middlewares
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(helmet());
 
 // Load the routes
 require('./routes').default(app);
