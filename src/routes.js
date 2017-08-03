@@ -6,10 +6,14 @@ const log = debug('app-routes');
 // Routes
 const userRoutes = require('./api/user/user.routes').default;
 
-export default (app) => {
+export default app => {
   // logger
   app.use((req, res, next) => {
-    log(`${blue(new Date().toISOString())} [${red(req.method)}] ${green(req.url)}`);
+    log(
+      `${blue(new Date().toISOString())} [${red(req.method)}] ${green(
+        req.url,
+      )}`,
+    );
     next();
   });
 
