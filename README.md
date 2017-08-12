@@ -29,6 +29,7 @@ Clone the repository and name it as you like.
 git clone https://github.com/septa97/node-boilerplate.git <your-project-name>
 cd your-project-name/
 rm -rf .git/ && git init
+git remote add origin https://github.com/<USERNAME>/<REPOSITORY>.git
 npm install
 cp .env.example .env
 npm run --silent create
