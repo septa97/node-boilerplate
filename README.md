@@ -30,8 +30,10 @@ git clone https://github.com/septa97/node-boilerplate.git <your-project-name>
 cd your-project-name/
 npm install
 cp .env.example .env
+npm run --silent create
 ```
 
+Then fill up the prompt for modifying the package.json.
 The above code installs the dependencies and create an environment file.
 
 ## Developing the application
