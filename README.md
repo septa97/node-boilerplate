@@ -33,10 +33,16 @@ git remote add origin https://github.com/<USERNAME>/<REPOSITORY>.git
 npm install
 cp .env.example .env
 npm run --silent create
+rm README.md
+mv README.sample.md README.md
 ```
 
 Then fill up the prompt for modifying the package.json.
+
 You must delete the .git folder and re-initialize it using `git init`.
+
+You must also create a new README.md. Open the new README.md then modify it depending on your project.
+
 The above code installs the dependencies, creates an environment file, and modifies the package.json file.
 
 ## Developing the application
