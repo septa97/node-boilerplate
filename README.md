@@ -9,18 +9,20 @@ A boilerplate for building applications in Node.js using ES6 with Code Coverage.
 
 ## Features
 
-| Feature                                                                             |
-|-------------------------------------------------------------------------------------|
-| ES6 using [Babel](https://babeljs.io/)                                              |
-| Run tests using [Mocha](https://mochajs.org/)                                       |
-| Code linting using [ESLint](http://eslint.org/)                                     |
-| Automatic syntax formatting using [prettier](https://github.com/prettier/prettier)  |
-| Auto-restart server using [nodemon](https://nodemon.io/)                            |
-| Logging using [debug](https://github.com/visionmedia/debug)                         |
-| HTTP access control using [cors](https://github.com/expressjs/cors)                 |
-| Code coverage using [istanbul](https://istanbul.js.org/)                            |
+| Feature                                                                                               |
+|-------------------------------------------------------------------------------------------------------|
+| ES6 using [Babel](https://babeljs.io/)                                                                |
+| Run tests using [Mocha](https://mochajs.org/)                                                         |
+| Code linting using [ESLint](http://eslint.org/)                                                       |
+| Automatic syntax formatting using [prettier](https://github.com/prettier/prettier)                    |
+| Auto-restart server using [nodemon](https://nodemon.io/)                                              |
+| Logging using [debug](https://github.com/visionmedia/debug)                                           |
+| HTTP access control using [cors](https://github.com/expressjs/cors)                                   |
+| API parameter validation using [express-validation](https://github.com/andrewkeig/express-validation) |
+| Code coverage using [istanbul](https://istanbul.js.org/)                                              |
+| HTTP status code and message [http-status](https://github.com/adaltas/node-http-status)               |
 | Consistent commit syntax using [commitizen](http://commitizen.github.io/cz-cli/) and [AngularJS's commit message convention](https://github.com/angular/angular.js/blob/master/CONTRIBUTING.md#-git-commit-guidelines)  |
-| Precommit hook by running the linter and code coverage tool                         |
+| Precommit hook by running the linter and code coverage tool                                           |
 
 ## Installing / Getting started
 
