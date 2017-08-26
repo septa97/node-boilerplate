@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import debug from 'debug';
 import bodyParser from 'body-parser';
 import helmet from 'helmet';
@@ -9,6 +10,7 @@ const log = debug('server');
 const PORT = process.env.PORT || 8000;
 
 // Load middlewares
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(helmet());
