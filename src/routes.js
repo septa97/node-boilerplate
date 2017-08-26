@@ -18,5 +18,5 @@ export default app => {
   });
 
   // Insert routes below
-  app.use('/api/user', userRoutes);
+  app.use('/api', userRoutes);
 };
