@@ -17,6 +17,7 @@ A boilerplate for building applications in Node.js using ES6 with Code Coverage.
 | Automatic syntax formatting using [prettier](https://github.com/prettier/prettier)  |
 | Auto-restart server using [nodemon](https://nodemon.io/)                            |
 | Logging using [debug](https://github.com/visionmedia/debug)                         |
+| HTTP access control using [cors](https://github.com/expressjs/cors)                 |
 | Code coverage using [istanbul](https://istanbul.js.org/)                            |
 | Consistent commit syntax using [commitizen](http://commitizen.github.io/cz-cli/) and [AngularJS's commit message convention](https://github.com/angular/angular.js/blob/master/CONTRIBUTING.md#-git-commit-guidelines)  |
 | Precommit hook by running the linter and code coverage tool                         |
