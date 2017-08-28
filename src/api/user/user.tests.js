@@ -1,30 +1,26 @@
-/* global describe, it */
-import chai from 'chai';
+import test from 'tape';
 import HTTPStatus from 'http-status';
 import supertest from 'supertest';
 import app from './../../server';
 
-const should = chai.should();
 const request = supertest(app);
 
-describe('User API', () => {
-  describe('GET /api/users', () => {
-    it('should get all the users', done => {
-      request.get('/api/users').expect(HTTPStatus.OK).end((err, res) => {
-        should.not.exist(err);
-        should.exist(res);
-        done();
-      });
+test.onFinish(() => process.exit(0));
+
+test('User API', t => {
+  t.test('GET /api/users', assert => {
+    request.get('/api/users').expect(HTTPStatus.OK).end((err, res) => {
+      assert.error(err, 'No errors');
+      assert.ok(res, 'Has a response');
+      assert.end();
     });
   });
 
-  describe('GET /api/user/:id', () => {
-    it('should get a user by id', done => {
-      request.get('/api/user/1').expect(HTTPStatus.OK).end((err, res) => {
-        should.not.exist(err);
-        should.exist(res);
-        done();
-      });
+  t.test('GET /api/user/:id', assert => {
+    request.get('/api/user/1').expect(HTTPStatus.OK).end((err, res) => {
+      assert.error(err, 'No errors');
+      assert.ok(res, 'Has a response');
+      assert.end();
     });
   });
 });
