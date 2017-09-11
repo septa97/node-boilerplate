@@ -1,10 +1,12 @@
 import debug from 'debug';
 import { red, green, blue } from 'chalk';
-
-const log = debug('app-routes');
+import passportMiddleware from './passport'; // eslint-disable-line
 
 // Routes
-const userRoutes = require('./api/user/user.routes').default;
+import userRoutes from './api/user/user.routes';
+import authRoutes from './api/auth/auth.routes';
+
+const log = debug('routes');
 
 export default app => {
   // logger
@@ -18,5 +20,6 @@ export default app => {
   });
 
   // Insert routes below
-  app.use('/api', userRoutes);
+  app.use('/api/user', userRoutes);
+  app.use('/api/auth', authRoutes);
 };
