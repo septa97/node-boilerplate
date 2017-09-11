@@ -6,6 +6,7 @@ import methodOverride from 'method-override';
 import debug from 'debug';
 import HTTPStatus from 'http-status';
 import bodyParser from 'body-parser';
+import mongoose from 'mongoose';
 import helmet from 'helmet';
 import { green } from 'chalk';
 
@@ -21,6 +22,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 // app.use(compression()); // Maybe add a filter later
 app.use(helmet());
+
+// Connect to MongoDB
+const mongoURI = `mongodb://${process.env.MONGO_HOST}/${process.env
+  .MONGO_DATABASE}`;
+mongoose.Promise = global.Promise;
+mongoose.connect(mongoURI, {
+  useMongoClient: true,
+});
 
 // Load the routes
 require('./routes').default(app);
