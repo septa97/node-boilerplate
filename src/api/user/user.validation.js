@@ -4,7 +4,18 @@ export default {
   getAll: {},
   getUser: {
     params: {
-      id: Joi.number().integer(),
+      username: Joi.string().required(),
+    },
+  },
+  register: {
+    body: {
+      username: Joi.string().required(),
+      email: Joi.string().email().required(),
+      password: Joi.string().required(),
+      confirmPassword: Joi.string().required(),
+      firstName: Joi.string().required(),
+      middleName: Joi.string().required(),
+      lastName: Joi.string().required(),
     },
   },
 };
