@@ -23,6 +23,9 @@ A boilerplate for building applications in Node.js using ES6 with Code Coverage.
 | HTTP status code and message [http-status](https://github.com/adaltas/node-http-status)               |
 | Consistent commit syntax using [commitizen](http://commitizen.github.io/cz-cli/) and [AngularJS's commit message convention](https://github.com/angular/angular.js/blob/master/CONTRIBUTING.md#-git-commit-guidelines)  |
 | Precommit hook by running the linter and code coverage tool                                           |
+| Authentication using [Passport.js](http://passportjs.org/) and [JSON Web Tokens](https://jwt.io/)     |
+| Password hashing using [bcryptjs](https://www.npmjs.com/package/bcryptjs)                             |
+| Object Data Modeling (ODM) using [mongoose](http://mongoosejs.com/)                                   |
 
 ## Installing / Getting started
 
