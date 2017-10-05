@@ -11,6 +11,7 @@ docs/
 
 # Coverage
 coverage/
+coverage.lcov
 
 # Environment files
 .env
