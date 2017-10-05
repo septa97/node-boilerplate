@@ -3,6 +3,7 @@ import path from 'path';
 import prompt from 'prompt';
 import debug from 'debug';
 import packageJSON from './../package.json';
+import apidocJSON from './../apidoc.json';
 
 const log = debug('scripts.create');
 
@@ -34,6 +35,7 @@ prompt.start();
 prompt.get(schema, (err, result) => {
   if (err) throw new Error(err);
 
+  // package.json
   packageJSON.name = result.name;
   packageJSON.description = result.description;
   packageJSON.repository.url = result.repositoryURL;
@@ -46,7 +48,13 @@ prompt.get(schema, (err, result) => {
     result.repositoryURL.length - 4,
   )}#readme`;
   packageJSON.author = result.author;
-  log(packageJSON);
+
+  // apidoc.json
+  apidocJSON.name = result.name;
+  apidocJSON.description = `${result.description} API Documentation`;
+  apidocJSON.title = result.name;
+  apidocJSON.url = `https://${result.name}.herokuapp.com/api`;
+  apidocJSON.header.title = result.name;
 
   // Write to package.json
   fs.writeFile(
@@ -57,6 +65,18 @@ prompt.get(schema, (err, result) => {
       if (error) throw new Error(error);
 
       log('Successfully modified package.json!');
+    },
+  );
+
+  // Write to apidoc.json
+  fs.writeFile(
+    path.join(__dirname, '/../apidoc.json'),
+    JSON.stringify(apidocJSON, null, 2),
+    'utf8',
+    error => {
+      if (error) throw new Error(error);
+
+      log('Successfully modified apidoc.json!');
     },
   );
 });
