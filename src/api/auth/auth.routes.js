@@ -1,20 +1,30 @@
 import express from 'express';
 import passport from 'passport';
+import debug from 'debug';
 import validate from 'express-validation';
 import * as controller from './auth.controller';
 import validation from './auth.validation';
 import wrapAsync from './../../helpers/wrapAsync';
+import ACL from './../../lib/acl';
 
 const router = express.Router();
-const passportLocal = passport.authenticate('local', { session: false });
-const passportJWT = passport.authenticate('jwt', { session: false });
+const passportLocal = passport.authenticate('local', {
+  session: false,
+  failWithError: true,
+});
+const passportJWT = passport.authenticate('jwt', {
+  session: false,
+  failWithError: true,
+});
+const log = debug('auth.routes'); // eslint-disable-line
 
 // GET
-router.get('/logout', passportJWT, wrapAsync(controller.logout));
+router.get('/auth/logout', ACL, passportJWT, wrapAsync(controller.logout));
 
 // POST
 router.post(
-  '/login',
+  '/auth/login',
+  ACL,
   validate(validation.login),
   passportLocal,
   wrapAsync(controller.login),
