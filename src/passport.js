@@ -1,5 +1,5 @@
 import passport from 'passport';
-import debug from 'debug'; // eslint-disable-line
+import debug from 'debug';
 import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt';
 import { Strategy as LocalStrategy } from 'passport-local';
 import User from './models/user.model';
@@ -40,7 +40,7 @@ passport.use(
       // Check if the email exists
       const user = await User.findOne({ email });
 
-      // If the user does not exists given the email
+      // Check if the user does not exists given the email
       if (!user) {
         return done(null, false);
       }
@@ -53,7 +53,7 @@ passport.use(
       }
 
       // Return the user details if the password and email is correct
-      // req.user is now contains the user details
+      // req.user now contains the user details
       return done(null, user);
     } catch (err) {
       return done(err, false);
