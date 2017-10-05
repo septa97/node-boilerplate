@@ -2,7 +2,6 @@
 > Simple Node.js Boilerplate for simple Node.js Applications. Inspired by [Kunal Kapadia's express-mongoose-es6-rest-api](https://github.com/KunalKapadia/express-mongoose-es6-rest-api).
 
 [![Build Status](https://travis-ci.org/septa97/node-boilerplate.svg?branch=master)](https://travis-ci.org/septa97/node-boilerplate)
-[![codecov](https://codecov.io/gh/septa97/node-boilerplate/branch/master/graph/badge.svg)](https://codecov.io/gh/septa97/node-boilerplate)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
 A boilerplate for building applications in Node.js using ES6 with Code Coverage. Follows [Airbnb's Javascript Style Guide](https://github.com/airbnb/javascript).
@@ -36,11 +35,11 @@ git clone https://github.com/septa97/node-boilerplate.git <your-project-name>
 cd your-project-name/
 rm -rf .git/ && git init
 git remote add origin https://github.com/<USERNAME>/<REPOSITORY>.git
-npm install
-cp .env.example .env
 npm run --silent create
+cp .env.example .env
 rm README.md
 mv README.sample.md README.md
+npm install
 ```
 
 Then fill up the prompt for modifying the package.json.
