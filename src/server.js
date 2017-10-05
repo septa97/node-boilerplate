@@ -1,19 +1,23 @@
-/* eslint no-unused-vars: ["error", { "argsIgnorePattern": "next" }] */
 import express from 'express';
 // import compression from 'compression';
 import cors from 'cors';
+import path from 'path';
+import HTTPStatus from 'http-status';
 import methodOverride from 'method-override';
 import debug from 'debug';
-import HTTPStatus from 'http-status';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import helmet from 'helmet';
+import expressValidation from 'express-validation';
 import { green } from 'chalk';
+import { MongoError } from 'mongodb';
+import { APIClientError } from './helpers/APIResponse';
+
+require('dotenv').config();
 
 const app = express();
-const log = debug('server');
-const PORT =
-  process.env.NODE_ENV === 'testing' ? 3000 : process.env.PORT || 8000;
+const log = debug('server'); // eslint-disable-line
+const PORT = process.env.NODE_ENV === 'test' ? 3000 : process.env.PORT || 8000;
 
 // Load middlewares
 app.use(cors());
@@ -24,19 +28,79 @@ app.use(bodyParser.json());
 app.use(helmet());
 
 // Connect to MongoDB
-const mongoURI = `mongodb://${process.env.MONGO_HOST}/${process.env
-  .MONGO_DATABASE}`;
+let mongoURI;
+
+if (!process.env.MONGO_USER && !process.env.MONGO_PASSWORD) {
+  mongoURI = `mongodb://${process.env.MONGO_HOST}:${process.env
+    .MONGO_PORT}/${process.env.MONGO_DATABASE}`;
+} else {
+  mongoURI = `mongodb://${process.env.MONGO_USER}:${process.env
+    .MONGO_DATABASE}@${process.env.MONGO_HOST}:${process.env
+    .MONGO_PORT}/${process.env.MONGO_DATABASE}`;
+}
+
 mongoose.Promise = global.Promise;
 mongoose.connect(mongoURI, {
   useMongoClient: true,
 });
 
+// Serve the static files of code coverage
+app.use('/coverage', express.static(path.join(__dirname, './../coverage')));
+
+// Serve the static files of documentation
+app.use('/docs/api', express.static(path.join(__dirname, './../docs/api')));
+app.use(
+  '/docs/source',
+  express.static(path.join(__dirname, './../docs/source')),
+);
+
 // Load the routes
 require('./routes').default(app);
 
-// Error handler for express-validation
+// Handle ValidationError
 app.use((err, req, res, next) => {
-  res.status(HTTPStatus.BAD_REQUEST).send(err);
+  if (err instanceof expressValidation.ValidationError) {
+    return res.status(err.status).json(err);
+  }
+
+  return next(err);
+});
+
+// Handle AuthenticationError
+app.use((err, req, res, next) => {
+  if (err.name && err.name === 'AuthenticationError') {
+    const response = new APIClientError(
+      {
+        message: 'Passport.js authentication failed.',
+      },
+      HTTPStatus.UNAUTHORIZED,
+      HTTPStatus['401'],
+    );
+
+    return res.status(err.status).json(response.jsonify());
+  }
+
+  return next(err);
+});
+
+// Handle APIClientError
+app.use((err, req, res, next) => {
+  if (err instanceof APIClientError) {
+    return res.status(err.status).json(err.jsonify());
+  }
+
+  return next(err);
+});
+
+// Handle MongoError
+app.use((err, req, res, next) => {
+  if (err instanceof MongoError) {
+    return res.status(HTTPStatus.INTERNAL_SERVER_ERROR).json({
+      message: 'Database error has occurred.',
+    });
+  }
+
+  return next(err);
 });
 
 // Start the server
