@@ -1,6 +1,9 @@
 import debug from 'debug';
+import HTTPStatus from 'http-status';
 import { red, green, blue } from 'chalk';
 import passportMiddleware from './passport'; // eslint-disable-line
+import { APIClientError } from './helpers/APIResponse';
+import wrapAsync from './helpers/wrapAsync';
 
 // Routes
 import userRoutes from './api/user/user.routes';
@@ -20,6 +23,21 @@ export default app => {
   });
 
   // Insert routes below
-  app.use('/api/user', userRoutes);
-  app.use('/api/auth', authRoutes);
+  app.use('/api', userRoutes);
+  app.use('/api', authRoutes);
+
+  // Handler for invalid routes
+  app.all(
+    '*',
+    // eslint-disable-next-line
+    wrapAsync(async (req, res, next) => {
+      throw new APIClientError(
+        {
+          message: 'Invalid route.',
+        },
+        HTTPStatus.NOT_FOUND,
+        HTTPStatus['404'],
+      );
+    }),
+  );
 };
