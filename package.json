@@ -2,7 +2,7 @@
   "name": "node-boilerplate",
   "version": "1.0.0",
   "description": "Node.js Boilerplate",
-  "main": "src/server.js",
+  "main": "src/app.js",
   "scripts": {
     "create": "node --require dotenv/config --require babel-register scripts/create.js",
     "cm": "git-cz",
@@ -21,7 +21,7 @@
     "build:server": "npm run clean:server && babel src/ -d dist/ --source-maps --copy-files",
     "build": "run-p build:*",
     "prestart:dev": "eslint --fix src/",
-    "start:dev": "node --require dotenv/config --require babel-register --require babel-polyfill src/server.js",
+    "start:dev": "node --require dotenv/config --require babel-register --require babel-polyfill src/bin/www",
     "dev": "nodemon --watch 'src/**/*.js' --exec npm run start:dev"
   },
   "repository": {
