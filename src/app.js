@@ -9,13 +9,11 @@ import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import helmet from 'helmet';
 import expressValidation from 'express-validation';
-import { green } from 'chalk';
 import { MongoError } from 'mongodb';
 import { APIClientError } from './helpers/APIResponse';
 
 const app = express();
-const log = debug('server'); // eslint-disable-line
-const PORT = process.env.NODE_ENV === 'test' ? 3000 : process.env.PORT || 8000;
+const log = debug('app'); // eslint-disable-line
 
 // Load middlewares
 app.use(cors());
@@ -26,21 +24,21 @@ app.use(bodyParser.json());
 app.use(helmet());
 
 // Connect to MongoDB
-// let mongoURI;
-//
-// if (!process.env.MONGO_USER && !process.env.MONGO_PASSWORD) {
-//   mongoURI = `mongodb://${process.env.MONGO_HOST}:${process.env
-//     .MONGO_PORT}/${process.env.MONGO_DATABASE}`;
-// } else {
-//   mongoURI = `mongodb://${process.env.MONGO_USER}:${process.env
-//     .MONGO_DATABASE}@${process.env.MONGO_HOST}:${process.env
-//     .MONGO_PORT}/${process.env.MONGO_DATABASE}`;
-// }
-//
-// mongoose.Promise = global.Promise;
-// mongoose.connect(mongoURI, {
-//   useMongoClient: true,
-// });
+let mongoURI;
+
+if (!process.env.MONGO_USER && !process.env.MONGO_PASSWORD) {
+  mongoURI = `mongodb://${process.env.MONGO_HOST}:${process.env
+    .MONGO_PORT}/${process.env.MONGO_DATABASE}`;
+} else {
+  mongoURI = `mongodb://${process.env.MONGO_USER}:${process.env
+    .MONGO_DATABASE}@${process.env.MONGO_HOST}:${process.env
+    .MONGO_PORT}/${process.env.MONGO_DATABASE}`;
+}
+
+mongoose.Promise = global.Promise;
+mongoose.connect(mongoURI, {
+  useMongoClient: true,
+});
 
 // Serve the static files of code coverage
 app.use('/coverage', express.static(path.join(__dirname, './../coverage')));
@@ -100,8 +98,5 @@ app.use((err, req, res, next) => {
 
   return next(err);
 });
-
-// Start the server
-app.listen(PORT, () => log(`Server listening on port ${green(PORT)}`));
 
 export default app;
