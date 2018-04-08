@@ -4,7 +4,7 @@ import debug from 'debug';
 // import faker from 'faker';
 // import HTTPStatus from 'http-status';
 import supertest from 'supertest';
-import app from './../src/server';
+import app from './../src/app';
 
 const request = supertest(app); // eslint-disable-line
 const log = debug('user.test'); // eslint-disable-line

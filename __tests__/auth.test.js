@@ -3,7 +3,7 @@ import test from 'tape';
 import debug from 'debug';
 // import HTTPStatus from 'http-status';
 import supertest from 'supertest';
-import app from './../src/server';
+import app from './../src/app';
 
 const request = supertest(app); // eslint-disable-line
 const log = debug('auth.test'); // eslint-disable-line
